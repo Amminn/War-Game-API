@@ -1,0 +1,58 @@
+html {
+    font-family: sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgba(3, 93, 3, 0.842);
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    margin: 0.2rem
+}
+
+button {
+    background-color: yellow;
+    padding: 5px;
+    color: black;
+    cursor: pointer;
+}
+
+img {
+    /* border-radius: 2px; */
+    min-height: 180px;
+    width: calc(180px * 5 / 7);
+}
+
+.blue {
+    margin: .6rem auto;
+    outline: 1px solid black;
+    min-height: 180px;
+    width: calc(180px * 5 / 7);
+    border-radius: 8px;
+}
+
+.red {
+    margin: .6rem auto;
+    outline: 1px solid black;
+    border-radius: 8px;
+    min-height: 180px;
+    width: calc(180px * 5 / 7);
+}
+
+#draw-cards {
+    margin-top: auto;
+}
+
+#new-deck {
+    display: inline;
+    /* width:  */
+    width: 110px;
+}
