@@ -3,16 +3,18 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <button id="new-deck">New Deck</button>
-        <h2 id="war">War!</h2>
+        <div class="top-left-side">
+            <button id="new-deck">New Deck</button>
+            <p id="remaining"></p>
+        </div>
+        <h2 id="war">Game of War!</h2>
         <p>Computer! <span id="computerScore"></span> </p>
         <p id="testing"></p>
         
-        <div class="blue"></div>
-        <div class="red"></div>
- 
+        <div class="computer-card"></div>
+        <div class="my-card"></div>
         <p>Me! <span id="myScore"></span> </p>
-        <button id="draw-cards">Draw</button>
+        <button disabled id="draw-cards">Draw</button>
         <script src="index.js"></script>
     </body>
 </html>

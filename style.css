@@ -15,7 +15,11 @@ body {
 }
 
 h2 {
-    margin: 0.2rem
+    margin-top: 1rem
+}
+
+p {
+    margin: 0.7rem 0rem;
 }
 
 button {
@@ -31,7 +35,7 @@ img {
     width: calc(180px * 5 / 7);
 }
 
-.blue {
+.computer-card {
     margin: .6rem auto;
     outline: 1px solid black;
     min-height: 180px;
@@ -39,7 +43,7 @@ img {
     border-radius: 8px;
 }
 
-.red {
+.my-card {
     margin: .6rem auto;
     outline: 1px solid black;
     border-radius: 8px;
@@ -55,4 +59,20 @@ img {
     display: inline;
     /* width:  */
     width: 110px;
+}
+
+.top-left-side {
+    display: flex;
+    align-items: center;
+}
+
+.top-left-side p {
+    margin: 0;
+    margin-left: 1.5rem;
+    /* display: none; */
+}
+
+button:disabled {
+    cursor: not-allowed;
+    color: gray;
 }

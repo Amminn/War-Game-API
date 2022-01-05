@@ -1,3 +1,122 @@
+const war = document.getElementById('war')
+const testing = document.getElementById('testing')
+const remaining = document.getElementById('remaining')
+const drawBtn = document.getElementById("draw-cards")
+const disMyScore = document.getElementById("myScore")
+const disComputerScore = document.getElementById("computerScore")
+
+let newCard
+
+let computerScore = 0
+let myScore = 0
+
+const myCard = document.querySelector('.my-card')
+const computerCard = document.querySelector('.computer-card')
+
+function handleClick() {
+    fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            drawBtn.disabled = false;
+            newCard = data.deck_id
+            console.log(newCard)
+            remaining.textContent = `remaining cards: ${data.remaining}`
+        })
+}
+
+document.getElementById("new-deck").addEventListener("click", handleClick) 
+drawBtn.addEventListener("click", () => { 
+    fetch(`https://apis.scrimba.com/deckofcards/api/deck/${newCard}/draw/?count=2`)
+    .then(resp => resp.json()) 
+    .then(data => { 
+        console.log(data) 
+        // show the message and render the remaining 
+        
+        remaining.textContent = `remaining cards: ${data.remaining}`
+        
+        myCard.innerHTML = `<img src="${data.cards[0].image}"/>`
+        
+        war.textContent = cardCheck2(data.cards[0].value, data.cards[1].value)
+        // ---------------------------
+        computerCard.innerHTML = `<img src="${data.cards[1].image}"/>`
+        disComputerScore.textContent = `${computerScore}`
+        disMyScore.textContent = `${myScore}`
+
+        if (data.remaining == 0) {
+            drawBtn.disabled = true;
+            if (myScore > computerScore) {
+                war.textContent = `You win the game !`
+            } else if (myScore < computerScore) {
+                war.textContent = `Computer win the game!`
+            } else {
+                war.textContent = `It's a tie game!!`
+            }
+        }
+    })
+})
+
+function cardCheck2(card1, card2) {
+    const theCards = ['1', '2', '3', '4', '5', '6', '7', '8' ,'9' , '10', "JACK", "QUEEN", "KING", "ACE"];
+    let firstCard = theCards.indexOf(card1) + 1
+    let secondCard = theCards.indexOf(card2) + 1
+    if (firstCard === secondCard) {
+        return 'War'
+    } else if (firstCard > secondCard) {
+        myScore++
+        return 'You Won!'
+    } else if (firstCard < secondCard) {
+        computerScore++
+        return "Computer Won!"
+    }
+}
+
+/** Challenge when the remaining is 0 we display the real winner of the game **/
+
+/**
+ * Challenge:
+ * 
+ * Keep score! Every time the computer wins a hand, add a point to
+ * the computer's score. Do the same for every time you win a hand.
+ * If it's a war, no points are awarded to either player. If it's 
+ * a war (same card values), no one is awarded points.
+ * 
+ * Display the computer's score above the top card, display your
+ * own score BELOW the bottom card.
+ * 
+ * Track the scores in a global variable defined at the top of this file
+ * 
+ * Add to the global scores inside the `determinCardWinner` function below.
+ */
+
+/**
+ * Challenge:
+ * 
+ * Disable the Draw button when we have no more cards to draw from
+ * in the deck.
+ * 
+ * Disable both the functionality of the button (i.e. change
+ * `disabled` to true on the button) AND the styling (i.e. add
+ * a `disabled` CSS class to make it look unclickable)
+ */
+    
+/**
+ * Challenge:
+ * 
+ * Display the number of remaining cards when we request a new deck, 
+ * not just when we draw the 2 cards.
+ * 
+ * Hint: check the data coming back from when we get a new deck.
+ */
+
+/**
+ * Challenge:
+ * 
+ * Display the number of cards remaining in the deck on the page
+ * Hint: Check the data that comes back when we draw 2 new cards
+ * to see if there's anything helpful there for this task (😉)
+*/
+
 // function handleClick() {
 //     fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
 //         .then(res => res.json())
@@ -152,63 +271,6 @@
  * if they're the same) to the console
  */
 
-let war = document.getElementById('war')
-let testing = document.getElementById('testing')
-
-let newCard
-
-let red = document.querySelector('.red')
-let blue = document.querySelector('.blue')
-
-function handleClick() {
-    fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            newCard = data.deck_id
-            console.log(newCard)
-        })
-}
-
-document.getElementById("new-deck").addEventListener("click", handleClick)
-document.getElementById("draw-cards").addEventListener("click", () => {
-    fetch(`https://apis.scrimba.com/deckofcards/api/deck/${newCard}/draw/?count=2`)
-    .then(resp => resp.json())
-    .then(data => {
-        console.log(data)
-        red.innerHTML = `<img src="${data.cards[0].image}"/>`
-        blue.innerHTML = `<img src="${data.cards[1].image}"/>`
-        war.innerHTML = cardCheck2(data.cards[0].value, data.cards[1].value)
-    })
-})
-
-let computerScore = 0
-let myScore = 0
-
-function cardCheck2(card1, card2) {
-    let theCards = ['1', '2', '3', '4', '5', '6', '7', '8' ,'9' , '10', "JACK", "QUEEN", "KING", "ACE"];
-    let firstCard = theCards.indexOf(card1) + 1
-    let secondCard = theCards.indexOf(card2) + 1
-    if(firstCard === secondCard) {
-        return 'War'
-    } else if (firstCard > secondCard) {
-        myScore++
-        return 'You Won!'
-    } else if (firstCard < secondCard) {
-        computerScore++
-        return "Computer Won!"
-    }
-    testing.textContent = `My score is ${myScore}, computer score is ${computerScore}`
-    console.log(`My score is ${myScore}, computer score is ${computerScore}`)
-}
-
-/**
- * Challenge:
- * 
- * Display the number of cards remaining in the deck on the page
- * Hint: Check the data that comes back when we draw 2 new cards
- * to see if there's anything helpful there for this task (😉)
-*/
 
 // let amin = {
 //     1: 1,
