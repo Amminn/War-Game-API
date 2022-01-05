@@ -13,22 +13,20 @@ let myScore = 0
 const myCard = document.querySelector('.my-card')
 const computerCard = document.querySelector('.computer-card')
 
-function handleClick() {
-    fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            drawBtn.disabled = false;
-            newCard = data.deck_id
-            console.log(newCard)
-            remaining.textContent = `remaining cards: ${data.remaining}`
-        })
+async function handleClick() {
+    const res = await fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
+    const data = await res.json()
+        console.log(data)
+        drawBtn.disabled = false;
+        newCard = data.deck_id
+        console.log(newCard)
+        remaining.textContent = `remaining cards: ${data.remaining}`
 }
 
 document.getElementById("new-deck").addEventListener("click", handleClick) 
-drawBtn.addEventListener("click", () => { 
-    fetch(`https://apis.scrimba.com/deckofcards/api/deck/${newCard}/draw/?count=2`)
-    .then(resp => resp.json()) 
+drawBtn.addEventListener("click", async() => { 
+    const resp = await fetch(`https://apis.scrimba.com/deckofcards/api/deck/${newCard}/draw/?count=2`)
+    const data = await resp.json()
     .then(data => { 
         console.log(data) 
         // show the message and render the remaining 
@@ -70,6 +68,7 @@ function cardCheck2(card1, card2) {
         return "Computer Won!"
     }
 }
+
 
 /** Challenge when the remaining is 0 we display the real winner of the game **/
 
